@@ -1,21 +1,28 @@
 import React, { useEffect } from "react";
 
-const TurkeyMap = ({ item }) => {
-  const [data, setData] = React.useState();
+const TurkeyMap = ({ city, blackList }) => {
   const ref = React.useRef(null);
 
   useEffect(() => {
     const svg = ref.current;
     const paths = svg.querySelectorAll("g");
     paths.forEach((path) => {
-      if (path.dataset.iladi === item) {
+      if (path.dataset.iladi === city) {
         path.style.fill = "#0052cc";
-        console.log(true);
-
-        console.log(true);
       }
     });
-  }, [item]);
+  }, [city]);
+
+  useEffect(() => {
+    const svg = ref.current;
+    const paths = svg.querySelectorAll("g");
+    paths.forEach((path) => {
+      if (blackList.includes(path.dataset.iladi)) {
+        path.style.fill = "#d9d9d9";
+      }
+    });
+  }, [blackList]);
+
   return (
     <svg
       version="1.1"
